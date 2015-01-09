@@ -4,6 +4,8 @@ RADseq tutorial for non-model systems
 
 Overview:
 ======
+0.  **TypeIIB RAD Library Prep**
+    1.  Digest genomic DNA with BcgI (decision point: which enzyme to use, AlfI or BcgI?  Things to consider: heat-inactivation ability, methylation sensitivity.)
 1.  **Processing Raw Reads**: 
     1.  Quantify number of tags mapping, read depth per individual, etc (Hohenlohe 2010)
     2.  Why to exclude "A" reef, Night dudes
@@ -29,6 +31,24 @@ Overview:
           3. Fst
       2.  Annotate those regions (Maker 2)
       3.  Logistic regression mapping outlier presence/absence onto continuous environmental variables/gradients (assosiate genotypes to clines)
-5.  **Zoox connectivity**
+5.  **Zoox connectivity** (not going to work; 91% of zoox-mapped reads (~20% of all reads) also map to the coral genome -- i.e., likely very nonspecific)
       1.  Patterns of zoox signatures
-      2.  (not going to work; 91% of zoox-mapped reads (~20% of all reads) also map to the coral genome -- i.e., likely very nonspecific)
+      2.  Connectivity among populations
+
+Type II B RAD
+======
+
+[Type II B RAD](http://www.nature.com/nmeth/journal/v9/n8/abs/nmeth.2023.html) differs from other RAD flavors because it uses a special restriction enzyme that cuts outside of its recognition site.  For the enzyme BcgI, the excised tag is  ...∇(N10)CGA(N6)TGC(N12)∇...; the recognition site is six bases long but the rest of the tag has 30 arbitrary bases.  This means that the enzyme can excise the same tag many times from different copies of the genome, yielding high coverage, and that each tag is effectively randomly scattered throughout the genome with respect to other tags.  Other enzymes can be used such as AlfI, but keep in mind that some enzymes are not heat-inactivatable and some enzymes, such as BcgI, are methylation sensitive.  We're not sure what kind of bias, if any, is introduced via methylation sensitivity, but it's definitely something to consider.
+
+Here, we use TypeIIB RAD with the enzyme BcgI to digest the genome of the scleractinian coral __Acropora millepora__.  We followed the protocol outlined on the [Matz Lab website -> methods -> 2bRAD protocol](http://www.bio.utexas.edu/research/matz_lab/matzlab/Methods_files/2bRAD_protocol-1.pdf) (last updated 9 July 2014.  Briefly, 
+1.  DNA is digested with BcgI to excise 36-base tags distributed throughout the genome.  
+2.  Next, adaptors are ligated to the tags and the tags are amplified via PCR.  
+3.  The tags are then purified out of the digestion mixture by gel electrophoresis and gel excision of the short, 170-base fragments (36-base tags + adaptors, etc).  
+4.  Individual samples are then quantified and sent for Illumina sequencing.
+
+Processing Raw Reads: 
+======
+
+So you have a bunch of raw sequence data.  Now what?
+
+The first step in any sequencing project analysis is to remove non-informative sequences, such as adaptor sequences and low quality bases.
