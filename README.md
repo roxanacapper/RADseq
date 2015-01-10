@@ -52,3 +52,13 @@ Processing Raw Reads:
 So you have a bunch of raw sequence data.  Now what?
 
 The first step in any sequencing project analysis is to remove non-informative sequences, such as adaptor sequences and low quality bases.
+
+Mapping: what reference resource do you map to?  Whole-genome?  Extracted tags?  Tags extracted but allowing 1-mismatch?  32-base tags or 36-base tags?  (i.e., are there more errors at the ends of the reads?  Some evidence says yes.)
+De novo mapping?  
+ 1) extract all possible tags, including 1 mismatch away from the canonical restriction site.  
+ 2) extract all exact tags, matching the restriction site exactly
+ 3) map to the whole genome    
+ 4) (concat all RAD tags into one mega-gene; either map to this, or map to tags separately and then glue them together for GATK Unified Genotyper.  This may not work easily, though it will make GATK run super fast.)
+
+Mappers: what algorithm to use?  Does it make a difference?  Is there any way to validate this? (no)
+SNP callers: home-made scripts, STACKS, frequency-based calling, samtools mpileup, GATK?  (GATK)
