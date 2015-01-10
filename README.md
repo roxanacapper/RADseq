@@ -53,12 +53,37 @@ So you have a bunch of raw sequence data.  Now what?
 
 The first step in any sequencing project analysis is to remove non-informative sequences, such as adaptor sequences and low quality bases.
 
-Mapping: what reference resource do you map to?  Whole-genome?  Extracted tags?  Tags extracted but allowing 1-mismatch?  32-base tags or 36-base tags?  (i.e., are there more errors at the ends of the reads?  Some evidence says yes.)
-De novo mapping?  
- 1) extract all possible tags, including 1 mismatch away from the canonical restriction site.  
- 2) extract all exact tags, matching the restriction site exactly
- 3) map to the whole genome    
- 4) (concat all RAD tags into one mega-gene; either map to this, or map to tags separately and then glue them together for GATK Unified Genotyper.  This may not work easily, though it will make GATK run super fast.)
+* __Read filtering__: 
+    - do you require each retained read to contain the canonical restriction site? 
+    - do you trim the overhanging bases from the digestion?  Using some combinations of things we found that there is an overabundance of SNPs on the first and last two bases of reads; this goes away under other conditions.  Might be conservative to get rid of them.
+ 
 
-Mappers: what algorithm to use?  Does it make a difference?  Is there any way to validate this? (no)
-SNP callers: home-made scripts, STACKS, frequency-based calling, samtools mpileup, GATK?  (GATK)
+Reference Selection
+* __Reference decision__:  
+    -  Could __in silico__ extract each potential, canonical RAD tag from the genome and map to those; 
+    -  Could __in silico__ extract each potential RAD tag allowing for up to one mismatch in each restriction site
+    * GATK can't call SNPs from large ref databases, so _extracting all the potential genomic RAD tags_ is not technically feasible.  
+    * Also, some colleages are concerned that by forcing mapping to a reference genome's digest you may force a bad read to map to a bad reference.  However, those bad reads should be removed via filtering for quality, so it's likely a moot point.
+    -  Mapping to the 12.5k contigs (_whole genome reference_) is much faster.  However, there is some thoguht about shifty restriction site mapping (no data to support this either way).  
+
+
+
+
+* Mapping: what reference resource do you map to?  Whole-genome?  Extracted tags?  Tags extracted but allowing 1-mismatch?  32-base tags or 36-base tags?  (i.e., are there more errors at the ends of the reads?  Some evidence says yes.)
+* De novo mapping?  
+ 1) extract all possible tags, including 1 mismatch away from the canonical restriction site.  (GATK can't handle so many "chromosomes"/reference contigs so this isn't practical, unless you only give it the reference tags that are mapped to at least 5x or whatever)
+ 2) extract all exact tags, matching the restriction site exactly (GATK can't handle so many "chromosomes"/reference contigs so this isn't practical, unless you only give it the reference tags that are mapped to at least 5x or whatever)
+ 3) map to the whole genome    
+ 4) (concat all RAD tags into one mega-gene; either map to this, or map to tags separately and then glue them together for GATK
+ 5) Unified Genotyper.  This may not work easily, though it will make GATK run super fast.)
+
+
+* __Mappers__: what algorithm to use?  Does it make a difference? (yes)  Is there any way to validate them? (no)
+    *  Bowtie1 doesn't play nicely with GATK; it sets every MAPQ value to 255 for "yes mapped" and 0 for "not mapped".  See [seqanswers1](http://seqanswers.com/forums/showthread.php?t=3142) and [seqanswers2](http://seqanswers.com/forums/showthread.php?t=10594)
+* SNP callers: 
+    - home-made scripts, 
+    - STACKS, 
+    - frequency-based SNP calling, 
+    - samtools mpileup, 
+    - GATK
+* GATK: to use local indel realignment or not?  Some colleagues think that ignoring this kind of biology is a Very Bad Thing.
