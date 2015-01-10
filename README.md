@@ -80,6 +80,12 @@ Reference Selection
 
 * __Mappers__: what algorithm to use?  Does it make a difference? (yes)  Is there any way to validate them? (no)
     *  Bowtie1 doesn't play nicely with GATK; it sets every MAPQ value to 255 for "yes mapped" and 0 for "not mapped".  See [seqanswers1](http://seqanswers.com/forums/showthread.php?t=3142) and [seqanswers2](http://seqanswers.com/forums/showthread.php?t=10594)
+    *  Bowtie2
+    *  SHRiMP
+    *  BWA
+    *  Stampy?
+
+
 * SNP callers: 
     - home-made scripts, 
     - STACKS, 
