@@ -91,12 +91,12 @@ Reference Selection
     - Unified Genotyper or HaplotypeCaller?
     - Do you follow the Best Practices including VQSR?  Do you train VQSR on the top 5% or top 10% of SNPs by quality?  by another metric?  Yes.  But, are these all artifacts??
 
-*__VCF filtering__:
-    - filter to retain 90% of "true variants"
-    - Keep only loci that are genotyped in >80% of individuals
-    - Keep only individuals in which >60% of all loci remaining are genotyped.
-    - Remove clonal individuals (those with extremely high relatedness; >95% the same genotypes, which is totally unlikely in natural populations.  Still not sure why this is a problem; multiple samplings of the same individual?  Tube confusion during library prep?)
-    - Remove individuals with low heterozygosity (`vcftools --vcf final.vcf --het`). 
+* __VCF filtering__:
+    * filter to retain 90% of "true variants"
+    * Keep only loci that are genotyped in >80% of individuals
+    * Keep only individuals in which >60% of all loci remaining are genotyped.
+    * Remove clonal individuals (those with extremely high relatedness; >95% the same genotypes, which is totally unlikely in natural populations.  Still not sure why this is a problem; multiple samplings of the same individual?  Tube confusion during library prep?)
+    * Remove individuals with low heterozygosity (`vcftools --vcf final.vcf --het`). 
     
 
 Anyway, you've made all these decisions and now you have a vcf file that is really pretty.
