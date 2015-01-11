@@ -63,7 +63,7 @@ The first step in any sequencing project analysis is to remove non-informative s
     - do you trim the overhanging bases from the digestion?  The enzyme leaves sticky ends when it cuts.  The question here is if we should analyze the length of the tag or if we should remove the two overhanging bases from each end of the reads.  Using some combinations of things we found that there is an overabundance of SNPs on bases 2 and 35 of the reads (due to ligation? degradation?); this goes away under other conditions (namely, GATK's Unified Genotyper works fine).  Might be most conservative to get rid of them, but on the other hand you could be throwing out a ton of data...
 
 * __Reference decision__:  
-    -  Could __in silico__ extract each potential, canonical RAD tag from the genome and map to those; 
+    -  Could __in silico__ extract each potential, canonical RAD tag from the genome and map to those ("digital digestion"); 
     -  Could __in silico__ extract each potential RAD tag allowing for up to one mismatch in each restriction site
     * GATK can't call SNPs from large ref databases, so _extracting all the potential genomic RAD tags_ is not technically feasible.  
     * Also, some colleages are concerned that by forcing mapping to a reference genome's digest you may force a bad read to map to a bad reference.  However, those bad reads should be removed via filtering for quality, so it's likely a moot point.
