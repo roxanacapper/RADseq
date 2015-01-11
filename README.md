@@ -143,11 +143,15 @@ The idea is to see if you can identify gene trees, or use gene clusters (linked 
   
 
 
-
-**Global Fst**
+**Model-based Fst with BayeScan**
 ===
 
-Average BayeScan Fst values over all SNPs.  This is the same data (per locus) that is used to graph model-based Fst along the genome.
+---> NOTES ABOUT model-based Fst calcs <----
+---> NOTES ABOUT model-based vs. model free calcs <----
+---> NOTES ABOUT BAYESCAN SPECIFICALLY <----
+---> NOTES ABOUT running Bayescan, particuarly about the number/type of pop comparisons  <----
+
+
 - Run BayeScan once per population pair
 - Run BayeScan once for all five pops (metapopulation)
 - Run BayeScan twice for a single population pair (check for convergence)
@@ -170,3 +174,16 @@ Average BayeScan Fst values over all SNPs.  This is the same data (per locus) th
         - `cp KxO.bayescan KxO_x2.bayescan`
         - `bayescan_2.1 KxO_x2.bayescan -threads 24`
         - compare outlier lists.  They should be mostly the same.
+
+
+
+
+**Global Fst**
+===
+
+Average BayeScan Fst values over all SNPs.  This is the same data (per locus) that is used to graph model-based Fst along the genome.
+
+**Graphing Fst along the chromosomes** (or reference contigs)
+
+
+**Signatures of Selection and Local Adaptation**
