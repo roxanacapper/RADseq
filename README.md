@@ -134,7 +134,7 @@ Note: there are a lot of fussy reformatting steps here.  There are, for sure, be
 ===
 
 I'm skipping ahead a little.  To do this, obviously you have to identify your outlier SNPs beforehand (ex., Fst analysis).
-The idea is to see if you can identify gene trees, or use gene clusters (linked loci) (yes, even in STRUCTURE which assumes zero linked loci), to reveal population history, unusual patterns, or anything else.
+The idea is to see if you can identify gene trees, or use gene clusters (linked loci) (yes, even in STRUCTURE which assumes zero linked loci), to reveal population history, unusual patterns, or anything else.  Yes, by definition these outlier SNPs have different frequencies among the populations, but do those SNPs tell a story as a group or not?
 
 1.  Convert `variants_only.vcf` into `variants_only.genepop` (vcf2genepop.pl)
 2.  No need to split outliers list into subpieces; there probably aren't that many on the list.  For example, I only had 90 identified with BayeScan.
@@ -142,9 +142,11 @@ The idea is to see if you can identify gene trees, or use gene clusters (linked 
 4.  Run STRUCTURE for 5 reps, K = 2..8
   
 
-
 **Model-based Fst with BayeScan**
 ===
+
+- For use with isolation-by-distance (IBD) graphing as well as plotting Fst values along the chromosome.  
+- Also good for comparing to model-free Fst calculations; do they agree in general?
 
 ---> NOTES ABOUT model-based Fst calcs <----
 ---> NOTES ABOUT model-based vs. model free calcs <----
@@ -152,9 +154,9 @@ The idea is to see if you can identify gene trees, or use gene clusters (linked 
 ---> NOTES ABOUT running Bayescan, particuarly about the number/type of pop comparisons  <----
 
 
-- Run BayeScan once per population pair
-- Run BayeScan once for all five pops (metapopulation)
-- Run BayeScan twice for a single population pair (check for convergence)
+* Run BayeScan once per population pair
+* Run BayeScan once for all five pops (metapopulation)
+* Run BayeScan twice for a single population pair (check for convergence)
  
 1.  Convert .vcf to .genepop: `vcf2genepop.pl vcf='KxO.vcf' pops=K,O > KxO.genepop`
 2.  If `variants.genepop` is too large to run in the 24-hour cluster window (particularly for the metapop analysis), split it into two pieces or more and run them as two jobs:  
