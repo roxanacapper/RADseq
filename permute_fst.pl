@@ -27,7 +27,10 @@ unless ($#ARGV == 2)
 open(FST,$ARGV[0]);
 $reps = $ARGV[1];
 open(RAW,">$ARGV[2]");
-open(LOG,">permute.log");
+
+@name = split(/\./,$ARGV[0]);
+$new = $name[0].".permute.log";
+open(LOG,">$new");
 
 $contig_count=0;
 $total_positions=0;
